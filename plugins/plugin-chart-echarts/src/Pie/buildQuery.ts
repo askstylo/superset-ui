@@ -29,7 +29,7 @@ export default function buildQuery(formData: QueryFormData, options: any) {
     };
 
     if (drillDown) {
-      const ownState = <OwnState> options.ownData;
+      const ownState = <OwnState> options.ownState;
       const groupby = <string[]> formData.groupby;
       queryObject = {
         ...queryObject,
