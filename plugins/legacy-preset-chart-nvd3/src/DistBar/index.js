@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import { t, ChartMetadata, ChartPlugin } from '@superset-ui/core';
+import { t, buildQueryContext, ChartMetadata, ChartPlugin, DrillDown } from '@superset-ui/core';
 import transformProps from '../transformProps';
 import thumbnail from './images/thumbnail.png';
 import example1 from './images/Bar_Chart.jpg';
@@ -57,7 +57,14 @@ export default class DistBarChartPlugin extends ChartPlugin {
     super({
       loadChart: () => import('../ReactNVD3'),
       metadata,
-      transformProps,
+      transformProps: (chartProps) => {
+        const { formData, ownState } = chartProps;
+        const { drillDown } = formData;
+        if (drillDown && ownState?.drilldown) {
+          chartProps.formData.groupby = [DrillDown.getColumn(ownState.drilldown, [])];
+        }
+        return transformProps(chartProps);
+      },
       controlPanel,
     });
   }
