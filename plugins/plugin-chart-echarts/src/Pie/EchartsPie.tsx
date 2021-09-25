@@ -50,11 +50,6 @@ export default function EchartsPie({
                 ? []
                 : groupby.map((col, idx) => {
                     const val = groupbyValues.map(v => v[idx]);
-                    if (val === null || val === undefined)
-                      return {
-                        col,
-                        op: 'IS NULL',
-                      };
                     return {
                       col,
                       op: 'IN',
