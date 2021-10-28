@@ -21,6 +21,7 @@ import {
   ChartProps,
   DrillDownType,
   QueryFormData,
+  QueryMode,
   SetAdhocFilter,
 } from '@superset-ui/core';
 
@@ -46,7 +47,6 @@ export interface StyloPieTableTransformedProps {
   table: TableChartTransformedProps;
 }
 
-// TODO need other function for raw-table-data
 export function makeTableFormData(formData: QueryFormData, drilldown: DrillDownType) {
   return {
     ...formData,
@@ -69,5 +69,20 @@ export function makeTableFormData(formData: QueryFormData, drilldown: DrillDownT
         isNew: false,
       };
     }),
+  };
+}
+
+export function makeTableRawFormData(formData: QueryFormData, drilldown: DrillDownType) {
+  const tableFormData = makeTableFormData(formData, drilldown);
+  return {
+    ...tableFormData,
+    order_desc: tableFormData.orderDesc,
+    query_mode: <QueryMode>tableFormData.queryMode,
+    adhoc_filters: tableFormData.adhocFilters,
+    server_page_length: tableFormData.serverPageLength,
+    table_timestamp_format: 'smart_date',
+    show_cell_bars: true,
+    color_pn: true,
+    result_type: 'full',
   };
 }

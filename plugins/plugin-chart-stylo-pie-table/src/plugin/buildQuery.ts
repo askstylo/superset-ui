@@ -17,8 +17,8 @@
  * under the License.
  */
 //import { buildQueryContext, QueryFormData, DrillDown } from '@superset-ui/core';
-import { QueryFormData, QueryMode } from '@superset-ui/core';
-import { OwnState, makeTableFormData } from '../types';
+import { QueryFormData } from '@superset-ui/core';
+import { OwnState, makeTableRawFormData } from '../types';
 import { default as tableBuildQuery } from '@superset-ui/plugin-chart-table/lib/buildQuery';
 import { default as pieBuildQuery } from '@superset-ui/plugin-chart-echarts/lib/Pie/buildQuery';
 
@@ -40,24 +40,10 @@ export default function buildQuery(formData: QueryFormData, options: any) {
   const ownState = <OwnState>options.ownState;
 
   if (ownState.drilldown?.currentIdx == formData.groupby?.length) {
-    const tableFormData = makeTableFormData(formData, ownState.drilldown);
-    return tableBuildQuery(
-      {
-        ...tableFormData,
-        order_desc: tableFormData.orderDesc,
-        query_mode: <QueryMode>tableFormData.queryMode,
-        adhoc_filters: tableFormData.adhocFilters,
-        server_page_length: tableFormData.serverPageLength,
-        table_timestamp_format: 'smart_date',
-        show_cell_bars: true,
-        color_pn: true,
-        result_type: 'full',
-      },
-      {
-        ...options,
-        extras: { cachedChanges: { undefined: ownState.drilldown.filters } },
-      },
-    );
+    return tableBuildQuery(makeTableRawFormData(formData, ownState.drilldown), {
+      ...options,
+      extras: { cachedChanges: { undefined: ownState.drilldown.filters } },
+    });
   } else {
     return pieBuildQuery({ ...formData, drillDown: true }, options);
   }

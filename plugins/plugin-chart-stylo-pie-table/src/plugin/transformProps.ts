@@ -25,10 +25,11 @@ import { default as tableTransform } from '@superset-ui/plugin-chart-table/lib/t
 import { TableChartProps } from '@superset-ui/plugin-chart-table/lib/types';
 import {
   makeTableFormData,
+  makeTableRawFormData,
   StyloPieTableChartProps,
   StyloPieTableTransformedProps,
 } from '../types';
-import { DrillDown, QueryMode } from '@superset-ui/core';
+import { DrillDown } from '@superset-ui/core';
 
 export default function transformProps(
   chartProps: StyloPieTableChartProps,
@@ -75,18 +76,8 @@ export default function transformProps(
   const tableProps: TableChartProps = {
     ...chartProps,
     ownCurrentState: {},
-    formData: tableFormData, // one of these needs camelcase to snake case
-    rawFormData: {
-      ...tableFormData,
-      order_desc: tableFormData.orderDesc,
-      query_mode: <QueryMode>tableFormData.queryMode,
-      adhoc_filters: tableFormData.adhocFilters,
-      server_page_length: tableFormData.serverPageLength,
-      table_timestamp_format: 'smart_date',
-      show_cell_bars: true,
-      color_pn: true,
-      result_type: 'results',
-    },
+    formData: tableFormData,
+    rawFormData: makeTableRawFormData(chartProps.formData, pieProps.ownState.drilldown),
   };
 
   return {

@@ -25,7 +25,6 @@ import { StyloPieTableChartProps } from '../types';
 
 export class StyloPieTableChartPlugin extends ChartPlugin<QueryFormData, StyloPieTableChartProps> {
   constructor() {
-    // todo, fill in more useful metadata
     const metadata = new ChartMetadata({
       category: t('Part of a Whole'),
       description: t(`Interactive pie chart with traversable hierarchy.  Clicking

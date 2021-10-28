@@ -116,7 +116,7 @@
       "path": "plugins/preset-chart-xy/test"
     },
     {
-      "path": "plugin-chart-stylo-pie-table"
+      "path": "plugins/plugin-chart-stylo-pie-table"
     }
   ],
   "extends": "./tsconfig.options.json"
