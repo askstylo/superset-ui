@@ -18,6 +18,7 @@
  */
 import React, { PureComponent } from 'react';
 import { default as EchartsPie } from '@superset-ui/plugin-chart-echarts/lib/Pie/EchartsPie';
+import { default as EchartsBar } from '@superset-ui/plugin-chart-echarts/lib/Bar/EchartsBar';
 import { default as TableChart } from '@superset-ui/plugin-chart-table/lib/TableChart';
 import { StyloPieTableTransformedProps } from './types';
 
@@ -61,7 +62,14 @@ export default class StyloPieTable extends PureComponent<StyloPieTableTransforme
         </div>
       );
     } else {
-      return <EchartsPie {...this.props.pie} />;
+      switch (this.props.childChartType) {
+        case 'pie':
+          return <EchartsPie {...this.props.pie} />;
+        case 'bar':
+          return <EchartsBar {...this.props.bar} />;
+        default:
+          throw new Error('Unknown chart type');
+      }
     }
   }
 }

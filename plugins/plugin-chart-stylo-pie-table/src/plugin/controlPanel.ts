@@ -17,7 +17,7 @@
  * under the License.
  */
 import { ensureIsArray, t } from '@superset-ui/core';
-import { ControlPanelConfig, sections } from '@superset-ui/chart-controls';
+import { ControlPanelConfig, formatSelectOptions, sections } from '@superset-ui/chart-controls';
 
 // everything here is essentially duplicated from pie chart, but discarding
 // stuff that we want to be constant and adding the "columns" field that
@@ -29,6 +29,17 @@ const config: ControlPanelConfig = {
       label: t('Query'),
       expanded: true,
       controlSetRows: [
+        [
+          {
+            name: 'child_chart_type',
+            config: {
+              type: 'SelectControl',
+              label: t('Base Chart Type'),
+              default: 'pie',
+              choices: formatSelectOptions(['pie', 'bar'])
+            }
+          }
+        ],
         ['groupby'],
         ['metric'],
         ['row_limit'],
