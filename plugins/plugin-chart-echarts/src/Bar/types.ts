@@ -3,7 +3,7 @@ import {
   ChartProps,
   DataRecordValue,
   QueryFormData,
-  SetDataMaskHook
+  SetDataMaskHook,
 } from '@superset-ui/core';
 import { EChartsOption } from 'echarts';
 import { DEFAULT_LEGEND_FORM_DATA, EchartsLegendFormData } from '../types';
@@ -11,13 +11,13 @@ import { OwnState } from '../Pie/types';
 
 export type EchartsBarFormData = QueryFormData &
   EchartsLegendFormData & {
-    groupby: string[],
+    groupby: string[];
   };
 
 // @ts-ignore
 export const DEFAULT_FORM_DATA: EchartsBarFormData = {
-  ...DEFAULT_LEGEND_FORM_DATA
-}
+  ...DEFAULT_LEGEND_FORM_DATA,
+};
 
 export interface EchartsBarChartProps extends ChartProps {
   formData: EchartsBarFormData;

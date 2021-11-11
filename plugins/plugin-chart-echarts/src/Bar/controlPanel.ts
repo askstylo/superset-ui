@@ -29,19 +29,23 @@ const config: ControlPanelConfig = {
         ['metric'],
         ['adhoc_filters'],
         ['groupby'],
-        isFeatureEnabled(FeatureFlag.DASHBOARD_DRILL_DOWN) ? [{
-          name: 'drillDown',
-          config: {
-            type: 'DrillDownControl',
-            label: t('Enable drill down'),
-            default: false,
-            description: t('Columns as hierarchy.'),
-            mapStateToProps: ({ form_data}) => ({
-              chartId: form_data?.slice_id || 0,
-              columns: form_data.groupby,
-            }),
-          }
-        }] : [],
+        isFeatureEnabled(FeatureFlag.DASHBOARD_DRILL_DOWN)
+          ? [
+              {
+                name: 'drillDown',
+                config: {
+                  type: 'DrillDownControl',
+                  label: t('Enable drill down'),
+                  default: false,
+                  description: t('Columns as hierarchy.'),
+                  mapStateToProps: ({ form_data }) => ({
+                    chartId: form_data?.slice_id || 0,
+                    columns: form_data.groupby,
+                  }),
+                },
+              },
+            ]
+          : [],
         ['limit'],
         ['timeseries_limit_metric'],
         [

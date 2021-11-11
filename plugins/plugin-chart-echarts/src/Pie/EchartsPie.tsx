@@ -20,7 +20,7 @@ import React, { useCallback } from 'react';
 import { PieChartTransformedProps } from './types';
 import Echart from '../components/Echart';
 import { EventHandlers } from '../types';
-import { DataMask, DrillDown } from "@superset-ui/core";
+import { DataMask, DrillDown } from '@superset-ui/core';
 
 export default function EchartsPie({
   formData,
@@ -61,11 +61,11 @@ export default function EchartsPie({
             value: groupbyValues.length ? groupbyValues : null,
             selectedValues: values.length ? values : null,
           },
-        }
+        };
       }
 
       if (formData.drillDown && ownState?.drilldown) {
-        const drilldown = DrillDown.drillDown(ownState?.drilldown, values[0])
+        const drilldown = DrillDown.drillDown(ownState?.drilldown, values[0]);
         dataMask = {
           extraFormData: {
             filters: drilldown.filters,
@@ -75,8 +75,8 @@ export default function EchartsPie({
           },
           ownState: {
             drilldown: drilldown,
-          }
-        }
+          },
+        };
       }
 
       setDataMask(dataMask);

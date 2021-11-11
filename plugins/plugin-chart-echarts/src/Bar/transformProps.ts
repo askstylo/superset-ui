@@ -1,9 +1,14 @@
-import { DataRecordValue, DrillDown, getMetricLabel, getTimeFormatter } from "@superset-ui/core";
-import { BarSeriesOption, EChartsOption } from "echarts";
-import { defaultGrid } from "../defaults";
-import { DEFAULT_LEGEND_FORM_DATA } from "../types";
-import { extractGroupbyLabel, getChartPadding, getColtypesMapping, getLegendProps } from "../utils/series";
-import { BarChartTransformedProps, EchartsBarChartProps, EchartsBarFormData } from "./types";
+import { DataRecordValue, DrillDown, getMetricLabel, getTimeFormatter } from '@superset-ui/core';
+import { BarSeriesOption, EChartsOption } from 'echarts';
+import { defaultGrid } from '../defaults';
+import { DEFAULT_LEGEND_FORM_DATA } from '../types';
+import {
+  extractGroupbyLabel,
+  getChartPadding,
+  getColtypesMapping,
+  getLegendProps,
+} from '../utils/series';
+import { BarChartTransformedProps, EchartsBarChartProps, EchartsBarFormData } from './types';
 
 export default function transformProps(chartProps: EchartsBarChartProps): BarChartTransformedProps {
   const { formData, height, filterState, hooks, width, ownState, queriesData } = chartProps;
@@ -23,12 +28,14 @@ export default function transformProps(chartProps: EchartsBarChartProps): BarCha
     dateFormat,
     drillDown,
   }: EchartsBarFormData = { ...DEFAULT_LEGEND_FORM_DATA, ...formData };
-  const groupby = drillDown && ownState?.drilldown ? [DrillDown.getColumn(ownState.drilldown, [])] : hierarchyOrColumns;
+  const groupby =
+    drillDown && ownState?.drilldown
+      ? [DrillDown.getColumn(ownState.drilldown, [])]
+      : hierarchyOrColumns;
   const metricLabel = getMetricLabel(metric);
 
   data.sort((a, b) => {
-    return (formData.orderDesc ? -1 : 1) * 
-      (<number> b[metricLabel] - <number> a[metricLabel]);
+    return (formData.orderDesc ? -1 : 1) * (<number>b[metricLabel] - <number>a[metricLabel]);
   });
 
   const keys = data.map(datum =>
@@ -61,9 +68,9 @@ export default function transformProps(chartProps: EchartsBarChartProps): BarCha
       animation: false,
       labelLine: labelsOutside && labelLine ? { show: true } : { show: false },
       data: data.map(datum => {
-        return <number> datum[metricLabel];
+        return <number>datum[metricLabel];
       }),
-      color: colorScheme
+      color: colorScheme,
     },
   ];
 
@@ -86,11 +93,11 @@ export default function transformProps(chartProps: EchartsBarChartProps): BarCha
       type: 'category',
       data: keys,
       axisLabel: {
-        rotate: -45
+        rotate: -45,
       },
     },
     yAxis: {
-      type: 'value'
+      type: 'value',
     },
     legend: {
       ...getLegendProps(legendType, legendOrientation, showLegend),
@@ -107,6 +114,6 @@ export default function transformProps(chartProps: EchartsBarChartProps): BarCha
     labelMap,
     echartOptions,
     setDataMask,
-    selectedValues
+    selectedValues,
   };
 }

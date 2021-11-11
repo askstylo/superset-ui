@@ -1,8 +1,8 @@
-import { ChartMetadata, ChartPlugin, t } from "@superset-ui/core";
-import transformProps from "./transformProps";
-import buildQuery from "./buildQuery";
+import { ChartMetadata, ChartPlugin, t } from '@superset-ui/core';
+import transformProps from './transformProps';
+import buildQuery from './buildQuery';
 import controlPanel from './controlPanel';
-import { EchartsBarChartProps, EchartsBarFormData } from "./types";
+import { EchartsBarChartProps, EchartsBarFormData } from './types';
 import thumbnail from './images/thumbnail.png';
 
 export default class EchartsBarChartPlugin extends ChartPlugin<
@@ -16,9 +16,9 @@ export default class EchartsBarChartPlugin extends ChartPlugin<
       loadChart: () => import('./EchartsBar'),
       metadata: new ChartMetadata({
         name: t('Bar Chart (echarts)'),
-        thumbnail
+        thumbnail,
       }),
-      transformProps
-    })
+      transformProps,
+    });
   }
 }

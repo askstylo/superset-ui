@@ -36,9 +36,9 @@ const config: ControlPanelConfig = {
               type: 'SelectControl',
               label: t('Base Chart Type'),
               default: 'pie',
-              choices: formatSelectOptions(['pie', 'bar'])
-            }
-          }
+              choices: formatSelectOptions(['pie', 'bar']),
+            },
+          },
         ],
         ['groupby'],
         ['metric'],

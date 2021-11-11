@@ -35,7 +35,16 @@ const grabD3Format = (datasource, targetMetric) => {
 };
 
 export default function transformProps(chartProps) {
-  const { width, height, annotationData, datasource, formData, hooks, ownState, queriesData } = chartProps;
+  const {
+    width,
+    height,
+    annotationData,
+    datasource,
+    formData,
+    hooks,
+    ownState,
+    queriesData,
+  } = chartProps;
 
   const { onAddFilter = NOOP, onError = NOOP, setDataMask } = hooks;
 

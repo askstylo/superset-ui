@@ -38,7 +38,8 @@ import { default as barBuildQuery } from '@superset-ui/plugin-chart-echarts/lib/
  * if a viz needs multiple different result sets.
  */
 export default function buildQuery(formData: QueryFormData, options: any) {
-  const ownState = <OwnState>options.ownState || DrillDown.fromHierarchy(<string[]> formData.groupby);
+  const ownState =
+    <OwnState>options.ownState || DrillDown.fromHierarchy(<string[]>formData.groupby);
 
   if (ownState.drilldown?.currentIdx == formData.groupby?.length) {
     return tableBuildQuery(makeTableRawFormData(formData, ownState.drilldown), {

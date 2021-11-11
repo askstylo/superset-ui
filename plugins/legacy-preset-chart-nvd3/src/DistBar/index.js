@@ -57,7 +57,7 @@ export default class DistBarChartPlugin extends ChartPlugin {
     super({
       loadChart: () => import('../ReactNVD3'),
       metadata,
-      transformProps: (chartProps) => {
+      transformProps: chartProps => {
         const { formData, ownState } = chartProps;
         const { drillDown } = formData;
         if (drillDown && ownState?.drilldown) {

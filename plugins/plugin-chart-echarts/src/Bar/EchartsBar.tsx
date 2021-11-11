@@ -1,8 +1,8 @@
-import { DataMask, DrillDown } from "@superset-ui/core";
-import React, { useCallback } from "react";
-import Echart from "../components/Echart";
-import { EventHandlers } from "../types";
-import { BarChartTransformedProps } from "./types";
+import { DataMask, DrillDown } from '@superset-ui/core';
+import React, { useCallback } from 'react';
+import Echart from '../components/Echart';
+import { EventHandlers } from '../types';
+import { BarChartTransformedProps } from './types';
 
 export default function EchartsBar({
   formData,
@@ -14,9 +14,7 @@ export default function EchartsBar({
   setDataMask,
   selectedValues,
 }: BarChartTransformedProps) {
-  const {
-    groupby
-  } = formData;
+  const { groupby } = formData;
 
   const handleChange = useCallback(
     (values: string[]) => {
@@ -46,11 +44,11 @@ export default function EchartsBar({
             value: groupbyValues.length ? groupbyValues : null,
             selectedValues: values.length ? values : null,
           },
-        }
+        };
       }
 
       if (formData.drillDown && ownState?.drilldown) {
-        const drilldown = DrillDown.drillDown(ownState?.drilldown, values[0])
+        const drilldown = DrillDown.drillDown(ownState?.drilldown, values[0]);
         dataMask = {
           extraFormData: {
             filters: drilldown.filters,
@@ -60,8 +58,8 @@ export default function EchartsBar({
           },
           ownState: {
             drilldown: drilldown,
-          }
-        }
+          },
+        };
       }
 
       setDataMask(dataMask);
@@ -88,5 +86,5 @@ export default function EchartsBar({
       eventHandlers={eventHandlers}
       selectedValues={selectedValues}
     />
-  )
+  );
 }
