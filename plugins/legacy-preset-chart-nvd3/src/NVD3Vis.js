@@ -31,7 +31,7 @@ import {
   getNumberFormatter,
   NumberFormats,
   CategoricalColorNamespace,
-  DrillDown
+  DrillDown,
 } from '@superset-ui/core';
 
 import 'nvd3-fork/build/nv.d3.css';
@@ -430,10 +430,11 @@ function nvd3Vis(element, props) {
         chart.width(width);
 
         // dispatch the drilldown event
-        chart.multibar.dispatch.on('elementClick', (e) => {
-          if (drillDown && ownState?.drilldown) { // need the formdata stuff here
+        chart.multibar.dispatch.on('elementClick', e => {
+          if (drillDown && ownState?.drilldown) {
+            // need the formdata stuff here
             const value = e.data.x;
-            const drilldown = DrillDown.drillDown(ownState?.drilldown, value)
+            const drilldown = DrillDown.drillDown(ownState?.drilldown, value);
             setDataMask({
               extraFormData: {
                 filters: drilldown.filters,
@@ -443,7 +444,7 @@ function nvd3Vis(element, props) {
               },
               ownState: {
                 drilldown: drilldown,
-              }
+              },
             });
           }
         });

@@ -110,7 +110,10 @@ export default function transformProps(chartProps: EchartsPieChartProps): PieCha
   }: EchartsPieFormData = { ...DEFAULT_LEGEND_FORM_DATA, ...DEFAULT_PIE_FORM_DATA, ...formData };
   const metricLabel = getMetricLabel(metric);
   const minShowLabelAngle = (showLabelsThreshold || 0) * 3.6;
-  const groupby = drillDown && ownState?.drilldown ? [DrillDown.getColumn(ownState.drilldown, [])] : hierarchyOrColumns;
+  const groupby =
+    drillDown && ownState?.drilldown
+      ? [DrillDown.getColumn(ownState.drilldown, [])]
+      : hierarchyOrColumns;
 
   const keys = data.map(datum =>
     extractGroupbyLabel({

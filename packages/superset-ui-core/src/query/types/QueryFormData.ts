@@ -137,7 +137,7 @@ export type DrillDownType = {
   hierarchy: string[];
   currentIdx: number;
   filters: QueryObjectFilterClause[];
-}
+};
 
 // Type signature for formData shared by all viz types
 // It will be gradually filled out as we build out the query object

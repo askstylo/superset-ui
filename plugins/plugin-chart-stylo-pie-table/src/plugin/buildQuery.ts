@@ -17,10 +17,11 @@
  * under the License.
  */
 //import { buildQueryContext, QueryFormData, DrillDown } from '@superset-ui/core';
-import { QueryFormData } from '@superset-ui/core';
+import { DrillDown, QueryFormData } from '@superset-ui/core';
 import { OwnState, makeTableRawFormData } from '../types';
 import { default as tableBuildQuery } from '@superset-ui/plugin-chart-table/lib/buildQuery';
 import { default as pieBuildQuery } from '@superset-ui/plugin-chart-echarts/lib/Pie/buildQuery';
+import { default as barBuildQuery } from '@superset-ui/plugin-chart-echarts/lib/Bar/buildQuery';
 
 /**
  * The buildQuery function is used to create an instance of QueryContext that's
@@ -37,7 +38,8 @@ import { default as pieBuildQuery } from '@superset-ui/plugin-chart-echarts/lib/
  * if a viz needs multiple different result sets.
  */
 export default function buildQuery(formData: QueryFormData, options: any) {
-  const ownState = <OwnState>options.ownState;
+  const ownState =
+    <OwnState>options.ownState || DrillDown.fromHierarchy(<string[]>formData.groupby);
 
   if (ownState.drilldown?.currentIdx == formData.groupby?.length) {
     return tableBuildQuery(makeTableRawFormData(formData, ownState.drilldown), {
@@ -45,6 +47,13 @@ export default function buildQuery(formData: QueryFormData, options: any) {
       extras: { cachedChanges: { undefined: ownState.drilldown.filters } },
     });
   } else {
-    return pieBuildQuery({ ...formData, drillDown: true }, options);
+    switch (formData.child_chart_type) {
+      case 'pie':
+        return pieBuildQuery({ ...formData, drillDown: true }, options);
+      case 'bar':
+        return barBuildQuery({ ...formData, drillDown: true }, options);
+      default:
+        throw new Error('unknown child chart type');
+    }
   }
 }
