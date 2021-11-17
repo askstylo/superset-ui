@@ -58,10 +58,10 @@ export default class DistBarChartPlugin extends ChartPlugin {
       loadChart: () => import('../ReactNVD3'),
       metadata,
       transformProps: chartProps => {
-        const { formData, ownState } = chartProps;
-        const { drillDown } = formData;
-        if (drillDown && ownState?.drilldown) {
-          chartProps.formData.groupby = [DrillDown.getColumn(ownState.drilldown, [])];
+        const drillDown = chartProps.formData.drillDown;
+        if (drillDown) {
+          chartProps.ownState = {...(chartProps.ownState && { drilldown: DrillDown.fromHierarchy(chartProps.formData.groupby) })};
+          chartProps.formData.groupby = [DrillDown.getColumn(chartProps.ownState.drilldown, [])];
         }
         return transformProps(chartProps);
       },
