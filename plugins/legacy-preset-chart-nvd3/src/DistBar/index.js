@@ -60,7 +60,10 @@ export default class DistBarChartPlugin extends ChartPlugin {
       transformProps: chartProps => {
         const drillDown = chartProps.formData.drillDown;
         if (drillDown) {
-          chartProps.ownState = {...(chartProps.ownState && { drilldown: DrillDown.fromHierarchy(chartProps.formData.groupby) })};
+          chartProps.ownState = {
+            ...(!chartProps.ownState.drilldown && { drilldown: DrillDown.fromHierarchy(chartProps.formData.groupby) }),
+            ...chartProps.ownState
+          };
           chartProps.formData.groupby = [DrillDown.getColumn(chartProps.ownState.drilldown, [])];
         }
         return transformProps(chartProps);
