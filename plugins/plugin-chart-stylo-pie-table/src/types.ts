@@ -24,6 +24,7 @@ import {
   QueryMode,
   SetAdhocFilter,
 } from '@superset-ui/core';
+import { BarChartTransformedProps } from '@superset-ui/plugin-chart-echarts/lib/Bar/types';
 
 import {
   PieChartTransformedProps,
@@ -35,6 +36,7 @@ export { OwnState };
 
 export interface StyloPieTableChartProps extends ChartProps {
   formData: QueryFormData & {
+    child_chart_type: string;
     drillDown: boolean;
     groupby: string[];
   };
@@ -43,8 +45,10 @@ export interface StyloPieTableChartProps extends ChartProps {
 }
 
 export interface StyloPieTableTransformedProps {
+  childChartType: string;
   pie: PieChartTransformedProps;
   table: TableChartTransformedProps;
+  bar: BarChartTransformedProps;
 }
 
 export function makeTableFormData(formData: QueryFormData, drilldown: DrillDownType) {

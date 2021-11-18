@@ -17,6 +17,7 @@
  * under the License.
  */
 import { default as pieTransform } from '@superset-ui/plugin-chart-echarts/lib/Pie/transformProps';
+import { default as barTransform } from '@superset-ui/plugin-chart-echarts/lib/Bar/transformProps';
 import {
   DEFAULT_FORM_DATA,
   EchartsPieChartProps,
@@ -30,6 +31,7 @@ import {
   StyloPieTableTransformedProps,
 } from '../types';
 import { DrillDown } from '@superset-ui/core';
+import { EchartsBarChartProps } from '@superset-ui/plugin-chart-echarts/lib/Bar/types';
 
 export default function transformProps(
   chartProps: StyloPieTableChartProps,
@@ -46,13 +48,12 @@ export default function transformProps(
    */
   const { formData } = chartProps;
 
-  // concoct EchartsPieChartProps from chartProps
-  const pieProps: EchartsPieChartProps = {
-    ...chartProps,
+  const echartProps = {
     formData: {
       ...DEFAULT_FORM_DATA,
       ...formData,
       drillDown: true,
+      metrics: formData.metrics || [],
     },
     /**
      * This looks really weird, but because of the order that react evaluates
@@ -72,6 +73,16 @@ export default function transformProps(
         DrillDown.fromHierarchy(formData.groupby.concat(formData.groupby[0])),
     },
   };
+
+  // concoct EchartsPieChartProps from chartProps
+  const pieProps: EchartsPieChartProps = {
+    ...chartProps,
+    ...echartProps,
+  };
+  const barProps: EchartsBarChartProps = {
+    ...pieProps,
+    ...echartProps,
+  };
   const tableFormData = makeTableFormData(chartProps.formData, pieProps.ownState.drilldown);
   const tableProps: TableChartProps = {
     ...chartProps,
@@ -81,7 +92,9 @@ export default function transformProps(
   };
 
   return {
+    childChartType: formData.childChartType,
     pie: pieTransform(pieProps),
+    bar: barTransform(barProps),
     table: tableTransform(tableProps),
   };
 }
