@@ -6,7 +6,7 @@ const Metric = styled.div`
   font-size: 40px;
   font-weight: 600;
   position: relative;
-  bottom: 530px;
+  bottom: 30px;
   left: 20px;
 `;
 

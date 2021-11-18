@@ -3,7 +3,7 @@ import { styled } from '@superset-ui/core';
 
 const DivComponent = styled.div`
   position: relative;
-  bottom: 460px;
+  bottom: 10px;
   left: 20px;
   width: 300px;
   font-size: 18px;

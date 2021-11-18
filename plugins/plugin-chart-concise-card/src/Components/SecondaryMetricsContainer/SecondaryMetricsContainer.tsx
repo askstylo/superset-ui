@@ -8,7 +8,7 @@ export default function SecondaryMetricContainer(props: SecondaryMetricsContaine
     margin-top: 40px;
     line-height: 22px;
     position: relative;
-    bottom: 540px;
+    bottom: 40px;
   `;
 
   const { secondaryMetrics } = props;

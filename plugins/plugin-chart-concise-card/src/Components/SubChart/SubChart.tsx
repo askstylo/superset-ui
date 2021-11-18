@@ -1,14 +1,13 @@
 import { styled } from '@superset-ui/core';
 import React from 'react';
-import Category from '../Category/Category';
+import FilterFieldsContainer from '../FilterFieldsContainer/FilterFieldsContainer';
 import { Metric, SubChartProps } from '../../types';
 // @ts-ignore
 import spinner from '../../images/loading.gif';
 
-import Tag from '../Tag/Tag';
 import RunQueryButton from '../RunQueryButton/RunQueryButton';
 import Result from '../Result/Result';
-import NoResult from '../NoResult';
+import NoResult from '../NoResult/NoResult';
 
 const Styles = styled.div<{ borderTopColor: string }>`
   width: 350px;
@@ -21,7 +20,7 @@ const Styles = styled.div<{ borderTopColor: string }>`
 
 const SpinnerComponent = styled.img`
   position: relative;
-  bottom: 600px;
+  bottom: 170px;
   left: 140px;
   width: 62px;
   height: 33px;
@@ -33,8 +32,7 @@ export default function SubChart(props: SubChartProps) {
     borderTopColor,
     data,
     formData,
-    categoryItems,
-    tagItems,
+    filterFieldsData,
     setShouldRunQuery,
     enableRunButton,
     isQueryRunning,
@@ -57,8 +55,7 @@ export default function SubChart(props: SubChartProps) {
 
   return (
     <Styles borderTopColor={borderTopColor}>
-      <Category categoryItems={categoryItems} />
-      <Tag tagItems={tagItems} />
+      <FilterFieldsContainer filterFieldsData={filterFieldsData} />
       <RunQueryButton setShouldRunQuery={setShouldRunQuery} enableRunButton={enableRunButton} />
 
       {primaryMetric.value ? (

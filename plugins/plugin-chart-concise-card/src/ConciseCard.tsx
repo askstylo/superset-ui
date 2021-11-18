@@ -16,27 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { createRef, SetStateAction, useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import { styled } from '@superset-ui/core';
-import { CategoryItems, ConciseCardProps, ConciseCardStylesProps, TagItems } from './types';
+import { ConciseCardProps } from './types';
 import SubChart from './Components/SubChart/SubChart';
-import {
-  CATEGORY_SUBJECT,
-  OPERATOR_ID_EQUALS,
-  runCustomQuery,
-  TAG_SUBJECT,
-} from './plugin/CustomApiUtils';
+import { OPERATOR_ID_EQUALS, runCustomQuery } from './plugin/CustomApiUtils';
 
-// Theming variables are provided for your use via a ThemeProvider
-// imported from @superset-ui/core. For variables available, please visit
-// https://github.com/apache-superset/superset-ui/blob/master/packages/superset-ui-core/src/style/index.ts
-
-const Styles = styled.div<ConciseCardStylesProps>`
-  //background-color: ${({ theme }) => theme.colors.secondary.light2};
+const Styles = styled.div`
   padding: ${({ theme }) => theme.gridUnit * 4}px;
   border-radius: ${({ theme }) => theme.gridUnit * 2}px;
-  // height: ${({ height }) => height};
-  // width: ${({ width }) => width};
   height: 400px;
   width: 900px;
   overflow: hidden;
@@ -45,30 +33,36 @@ const Styles = styled.div<ConciseCardStylesProps>`
 `;
 
 export default function ConciseCard(props: ConciseCardProps) {
-  const { data, height, width, formData, categoryList, tagList } = props;
+  const { data, formData, firstFilterData, secondFilterData } = props;
 
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedTag, setSelectedTag] = useState('');
-  const [queriedCategory, setQueriedCategory] = useState('');
-  const [queriedTag, setQueriedTag] = useState('');
+  const [firstFilterValue, setFirstFilterValue] = useState('');
+  const [secondFilterValue, setSecondFilterValue] = useState('');
+  const [firstFilterQueriedValue, setFirstFilterQueriedValue] = useState('');
+  const [secondFilterQueriedValue, setSecondFilterQueriedValue] = useState('');
   const [shouldRunQuery, setShouldRunQuery] = useState(false);
   const [isQueryRunning, setIsQueryRunning] = useState(false);
   const [customData, setCustomData] = useState(null);
 
-  const isTagChanged = selectedTag && selectedTag !== queriedTag;
-  const isCategoryChanged = selectedCategory && selectedCategory !== queriedCategory;
+  const firstFilterValueChanged = firstFilterValue && firstFilterValue !== firstFilterQueriedValue;
+  const secondFilterValueChanged =
+    secondFilterValue && secondFilterValue !== secondFilterQueriedValue;
 
-  const enableRunButton: boolean = Boolean(!isQueryRunning && (isTagChanged || isCategoryChanged));
+  const enableRunButton: boolean = Boolean(
+    !isQueryRunning && (secondFilterValueChanged || firstFilterValueChanged),
+  );
 
-  const requestCategory = selectedCategory || queriedCategory;
-  const requestTag = selectedTag || queriedTag;
-
-  if (shouldRunQuery && (requestCategory || requestTag) && (isTagChanged || isCategoryChanged)) {
+  if (shouldRunQuery && (secondFilterValueChanged || firstFilterValueChanged)) {
     setIsQueryRunning(true);
     setShouldRunQuery(false);
-    runCustomQuery(formData, requestCategory, requestTag)
+    runCustomQuery(
+      formData,
+      firstFilterValue || firstFilterQueriedValue,
+      secondFilterValue || secondFilterQueriedValue,
+      firstFilterData.colnames[0],
+      secondFilterData.colnames[0],
+    )
       .then(r => {
-        setCustomData(r.json.result[0].data[0]);
+        setCustomData(r.json.result[0].data[0] || {});
       })
       .catch(e => console.log(e))
       .finally(() => setIsQueryRunning(false));
@@ -79,56 +73,49 @@ export default function ConciseCard(props: ConciseCardProps) {
   const customAdhocFilters = customData ? customData.adhocFilters : null;
 
   useEffect(() => {
-    if (adhocFilters) {
-      customAdhocFilters ||
-        adhocFilters.forEach(
-          (filter: { operatorId: string; subject: string; comparator: SetStateAction<any> }) => {
-            if (filter.operatorId === OPERATOR_ID_EQUALS) {
-              if (filter.subject === CATEGORY_SUBJECT) {
-                setQueriedCategory(filter.comparator);
-              }
-              if (filter.subject === TAG_SUBJECT) {
-                setQueriedTag(filter.comparator);
-              }
+    const relevantFilters = customAdhocFilters || adhocFilters;
+    if (relevantFilters) {
+      relevantFilters.forEach(
+        (filter: { operatorId: string; subject: string; comparator: SetStateAction<any> }) => {
+          if (filter.operatorId === OPERATOR_ID_EQUALS) {
+            if (filter.subject === firstFilterData.colnames[0]) {
+              setFirstFilterQueriedValue(filter.comparator);
             }
-          },
-        );
+            if (filter.subject === firstFilterData.colnames[0]) {
+              setSecondFilterQueriedValue(filter.comparator);
+            }
+          }
+        },
+      );
     }
-  }, [adhocFilters]);
-
-  const rootElem = createRef<HTMLDivElement>();
+  }, [adhocFilters, customAdhocFilters]);
 
   const firstData = data[0];
 
-  const categoryItems: CategoryItems = {
-    categoryList,
-    selectedCategory: selectedCategory,
-    setSelectedCategory: setSelectedCategory,
-    queriedCategory: queriedCategory,
-  };
+  const filterFieldsData = [];
 
-  const tagItems: TagItems = {
-    tagList,
-    selectedTag: selectedTag,
-    setSelectedTag: setSelectedTag,
-    queriedTag: queriedTag,
-  };
+  filterFieldsData.push({
+    filterData: firstFilterData,
+    filterValue: firstFilterValue,
+    setFilterValue: setFirstFilterValue,
+    queriedValue: firstFilterQueriedValue,
+  });
+
+  filterFieldsData.push({
+    filterData: secondFilterData,
+    filterValue: secondFilterValue,
+    setFilterValue: setSecondFilterValue,
+    queriedValue: secondFilterQueriedValue,
+  });
 
   return (
-    <Styles
-      ref={rootElem}
-      boldText={props.boldText}
-      headerFontSize={props.headerFontSize}
-      height={height}
-      width={width}
-    >
+    <Styles>
       {formData && (
         <SubChart
           borderTopColor={'#450097'}
           data={customData || firstData}
           formData={formData}
-          categoryItems={categoryItems}
-          tagItems={tagItems}
+          filterFieldsData={filterFieldsData}
           setShouldRunQuery={setShouldRunQuery}
           enableRunButton={enableRunButton}
           isQueryRunning={isQueryRunning}

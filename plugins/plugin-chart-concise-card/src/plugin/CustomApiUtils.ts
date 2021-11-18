@@ -53,25 +53,27 @@ function createQuerySettings(payload: object) {
   };
 }
 
-export function runCustomQuery(formData: any, category: string, tag: string) {
+export function runCustomQuery(
+  formData: any,
+  firstFieldValue: string,
+  secondFieldValue: string,
+  firstColumn: string,
+  secondColumn: string,
+) {
   const { adhocFilters } = formData;
 
   const transformedFilters = transformFilters(adhocFilters);
 
-  const finalCategoryFilters = transformedFilters.filter(filter => {
-    return !(filter[OP] === '==' && (filter[COL] === 'category' || filter[COL] === 'tag'));
-  });
-
-  if (category) {
-    finalCategoryFilters.push({ col: 'category', op: '==', val: category });
+  if (firstFieldValue) {
+    transformedFilters.push({ col: firstColumn, op: '==', val: firstFieldValue });
   }
-  if (tag) {
-    finalCategoryFilters.push({ col: 'tag', op: '==', val: tag });
+  if (secondFieldValue) {
+    transformedFilters.push({ col: secondColumn, op: '==', val: secondFieldValue });
   }
 
   const customFormData = {
     ...formData,
-    filters: finalCategoryFilters,
+    filters: transformedFilters,
   };
 
   const payload = buildReqestPayload(customFormData);

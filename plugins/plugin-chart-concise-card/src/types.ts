@@ -29,6 +29,11 @@ interface ConciseCardCustomizeProps {
   headerText: string;
 }
 
+export type FilterData = {
+  colnames: [string];
+  data: [];
+};
+
 export type ConciseCardQueryFormData = QueryFormData &
   ConciseCardStylesProps &
   ConciseCardCustomizeProps;
@@ -37,10 +42,8 @@ export type ConciseCardProps = ConciseCardStylesProps &
   ConciseCardCustomizeProps & {
     data: TimeseriesDataRecord[];
     formData: FormData;
-    categoryList: [];
-    selectedCategory: string;
-    tagList: [];
-    // add typing here for the props you pass in from transformProps.ts!
+    firstFilterData: FilterData;
+    secondFilterData: FilterData;
   };
 
 export type FormData = {
@@ -48,33 +51,25 @@ export type FormData = {
   metrics: Metric[];
 };
 
-export type CategoryItems = {
-  categoryList: [];
-  selectedCategory: string;
-  setSelectedCategory: Function;
-  queriedCategory: string;
-};
-
-export type TagItems = {
-  tagList: [];
-  selectedTag: string;
-  setSelectedTag: Function;
-  queriedTag: string;
-};
-
 export type SubChartProps = {
   borderTopColor: string;
   data: TimeseriesDataRecord;
   formData: FormData;
-  categoryItems: CategoryItems;
-  tagItems: TagItems;
+  filterFieldsData: any;
   setShouldRunQuery: Function;
   enableRunButton: boolean;
   isQueryRunning: boolean;
 };
 
+export type FilterFieldData = {
+  filterData: FilterData;
+  filterValue: string;
+  setFilterValue: Function;
+  queriedValue: string;
+};
+
 export type CategoryProps = {
-  categoryItems: CategoryItems;
+  filterFieldsData: [];
 };
 
 export type AdhocFilter = {

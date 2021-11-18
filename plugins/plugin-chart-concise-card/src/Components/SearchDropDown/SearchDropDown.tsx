@@ -49,7 +49,7 @@ export default function SearchDropDown(props: {
   values: string[];
   selectedValue: string;
   setSelectedValue: Function;
-  name: string;
+  name: any;
   defaultValue: string;
 }) {
   const { values, selectedValue, setSelectedValue, name, defaultValue } = props;
@@ -61,9 +61,10 @@ export default function SearchDropDown(props: {
 
   if (inputValue) {
     filteredValues = filteredValues.filter(value =>
-      value.toLowerCase().includes(inputValue.toLowerCase()),
+      value.toString().toLowerCase().includes(inputValue.toString().toLowerCase()),
     );
   }
+  filteredValues = filteredValues.slice(0, 199);
 
   useEffect(() => setInputValue(selectedValue), [selectedValue]);
   useEffect(() => setInputValue(defaultValue), [defaultValue]);

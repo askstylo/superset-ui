@@ -17,7 +17,7 @@
  * under the License.
  */
 // eslint-disable-next-line import/prefer-default-export
-// @ts-ignore
+
 export { default as ConciseCardChartPlugin } from './plugin';
 /**
  * Note: this file exports the default export from ConciseCardPlugin.tsx.
