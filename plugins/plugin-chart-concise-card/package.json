@@ -1,6 +1,6 @@
 {
   "name": "@superset-ui/plugin-chart-concise-card",
-  "version": "0.0.0",
+  "version": "0.18.1000",
   "description": "Superset Chart - Concise Card",
   "sideEffects": false,
   "main": "lib/index.js",
