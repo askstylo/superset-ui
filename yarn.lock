@@ -4371,6 +4371,16 @@
     resolve-from "^5.0.0"
     store2 "^2.7.1"
 
+"@superset-ui/chart-controls@0.18.0":
+  version "0.18.0"
+  resolved "http://localhost:4873/@superset-ui%2fchart-controls/-/chart-controls-0.18.0.tgz#26813cb04a50771cd44de94373ad9bb7339e0ab9"
+  integrity sha512-FLSRN0uJW0W5p+oy+0qxDVaAxtpU/nyHzsfP3EIcUfhPFEtlEeZ4H2Uk6ZdMaVh7x/66jR8SwwlqI0k9vBMz1w==
+  dependencies:
+    "@react-icons/all-files" "^4.1.0"
+    "@superset-ui/core" "0.18.0"
+    lodash "^4.17.15"
+    prop-types "^15.7.2"
+
 "@superset-ui/commit-config@^0.0.9":
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/@superset-ui/commit-config/-/commit-config-0.0.9.tgz#f0149945185e0908e14fec46bdc1498aa026ada7"
@@ -4384,6 +4394,39 @@
     conventional-changelog-cli "^2.0.12"
     cz-conventional-changelog "^2.1.0"
 
+"@superset-ui/core@0.18.0":
+  version "0.18.0"
+  resolved "http://localhost:4873/@superset-ui%2fcore/-/core-0.18.0.tgz#1c1449f1d27b09287488f09a1e8f604abf5e37bb"
+  integrity sha512-VD1bC5odnD+fyKydPjXomuwJZ983Gjwcc1LY+bi24/I+AfW+7Xd20iARXxkhjOF7ezbWb4I+X1vxsDbgLStpKQ==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+    "@emotion/styled" "^11.3.0"
+    "@types/d3-format" "^1.3.0"
+    "@types/d3-interpolate" "^1.3.1"
+    "@types/d3-scale" "^2.1.1"
+    "@types/d3-time" "^1.0.9"
+    "@types/d3-time-format" "^2.1.0"
+    "@types/lodash" "^4.14.149"
+    "@types/rison" "0.0.6"
+    "@types/seedrandom" "^2.4.28"
+    "@vx/responsive" "^0.0.199"
+    csstype "^2.6.4"
+    d3-format "^1.3.2"
+    d3-interpolate "^1.4.0"
+    d3-scale "^3.0.0"
+    d3-time "^1.0.10"
+    d3-time-format "^2.2.0"
+    fetch-retry "^4.0.1"
+    jed "^1.1.1"
+    lodash "^4.17.11"
+    pretty-ms "^7.0.0"
+    react-error-boundary "^1.2.5"
+    react-markdown "^4.3.1"
+    reselect "^4.0.0"
+    rison "^0.1.1"
+    seedrandom "^3.0.5"
+    whatwg-fetch "^3.0.0"
+
 "@superset-ui/core@file:packages/superset-ui-core/src":
   version "0.0.0"
 
@@ -4395,6 +4438,19 @@
     d3 "^3.5.17"
     d3-cloud "^1.2.1"
     prop-types "^15.6.2"
+
+"@superset-ui/plugin-chart-echarts@0.18.1":
+  version "0.18.1"
+  resolved "http://localhost:4873/@superset-ui%2fplugin-chart-echarts/-/plugin-chart-echarts-0.18.1.tgz#b7ccbc195a1e5461450effbca63a1e10ab1eb531"
+  integrity sha512-sFDPAWBITmiyUcxxk8OyILku0OSiZ5QqC1RNWnmhvgyiOSUW639TEFGuE0ujU0Lyikxp7H7IOHel645V3OmkiA==
+  dependencies:
+    "@superset-ui/chart-controls" "0.18.0"
+    "@superset-ui/core" "0.18.0"
+    "@types/mathjs" "^6.0.7"
+    d3-array "^1.2.0"
+    echarts "^5.1.2"
+    lodash "^4.17.15"
+    mathjs "^8.0.1"
 
 "@superset-ui/react-pivottable@^0.12.12":
   version "0.12.12"
@@ -6008,7 +6064,7 @@ airbnb-js-shims@^2.2.1:
     string.prototype.padstart "^3.0.0"
     symbol.prototype.description "^1.0.0"
 
-airbnb-prop-types@^2.16.0:
+airbnb-prop-types@^2.15.0, airbnb-prop-types@^2.16.0:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/airbnb-prop-types/-/airbnb-prop-types-2.16.0.tgz#b96274cefa1abb14f623f804173ee97c13971dc2"
   integrity sha512-7WHOFolP/6cS96PhKNrslCLMYAI8yB1Pp6u6XmxozQOiZbsI5ycglZr5cHhBFfuRcQQjzCMith5ZPZdYiJCxUg==
@@ -8419,6 +8475,11 @@ console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
   integrity sha1-PXz0Rk22RG6mRL9LOVB/mFEAjo4=
 
+"consolidated-events@^1.1.1 || ^2.0.0":
+  version "2.0.2"
+  resolved "http://localhost:4873/consolidated-events/-/consolidated-events-2.0.2.tgz#da8d8f8c2b232831413d9e190dc11669c79f4a91"
+  integrity sha512-2/uRVMdRypf5z/TW/ncD/66l75P5hH2vM/GR8Jf8HLc2xnfJtmina6F6du8+v4Z2vTrMo7jC+W1tmEEuuELgkQ==
+
 constant-case@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/constant-case/-/constant-case-2.0.0.tgz#4175764d389d3fa9c8ecd29186ed6005243b6a46"
@@ -9792,6 +9853,13 @@ doctrine@^3.0.0:
   integrity sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==
   dependencies:
     esutils "^2.0.2"
+
+document.contains@^1.0.1:
+  version "1.0.2"
+  resolved "http://localhost:4873/document.contains/-/document.contains-1.0.2.tgz#4260abad67a6ae9e135c1be83d68da0db169d5f0"
+  integrity sha512-YcvYFs15mX8m3AO1QNQy3BlIpSMfNRj3Ujk2BEJxsZG+HZf7/hZ6jr7mDpXrF8q+ff95Vef5yjhiZxm8CGJr6Q==
+  dependencies:
+    define-properties "^1.1.3"
 
 dom-accessibility-api@^0.5.4:
   version "0.5.4"
@@ -19094,6 +19162,17 @@ react-move@^2.1.0:
     d3-timer "^1.0.9"
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
+
+react-outside-click-handler@^1.3.0:
+  version "1.3.0"
+  resolved "http://localhost:4873/react-outside-click-handler/-/react-outside-click-handler-1.3.0.tgz#3831d541ac059deecd38ec5423f81e80ad60e115"
+  integrity sha512-Te/7zFU0oHpAnctl//pP3hEAeobfeHMyygHB8MnjP6sX5OR8KHT1G3jmLsV3U9RnIYo+Yn+peJYWu+D5tUS8qQ==
+  dependencies:
+    airbnb-prop-types "^2.15.0"
+    consolidated-events "^1.1.1 || ^2.0.0"
+    document.contains "^1.0.1"
+    object.values "^1.1.0"
+    prop-types "^15.7.2"
 
 react-popper-tooltip@^2.8.3:
   version "2.11.1"
